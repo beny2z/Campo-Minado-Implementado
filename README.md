@@ -1,60 +1,40 @@
 # Campo Minado
 
-Este projeto é uma versão em Java do jogo Campo Minado com interface gráfica Swing e arquitetura MVC.
+Este projeto é uma versão em Java do jogo Campo Minado com interface gráfica Swing e arquitetura MVC. A estrutura original foi preservada: `src/main` continua contendo os mesmos pontos de entrada e o comando de compilação não foi alterado.
 
-## Estrutura do projeto
+## Funcionalidades implementadas
 
-- `src/main` - classes principais de execução.
-  - `JogoCampoMinadoGUI.java` - entrada do jogo em modo gráfico.
-  - `JogoCampoMinado.java` - alternativa de execução em console.
-- `src/controller` - controlador MVC.
-  - `CampoMinadoController.java` - lógica de jogo e sincronização entre View e Model.
-  - `AcoesJogador.java` - interface de ações disparadas pela View.
-- `src/view` - camada de interface gráfica.
-  - `CampoMinadoView.java` - tela do jogo, tutorial, tema e estatísticas.
-- `src/model` - modelo de domínio do jogo.
-  - `Tabuleiro.java` - lógica do tabuleiro, minas, revelação e vitória.
-  - `Celula.java` - estado de cada célula do tabuleiro.
-  - `LeituraTabuleiro.java` - interface de leitura do estado do tabuleiro.
-- `src/test` - testes unitários.
-  - `CampoMinadoTest.java`
+Além das dificuldades padrão, o jogo inclui temas escuro, claro, campo, terminal retrô, cyberpunk neon, Halloween, oceano tropical, alto contraste e automático; skins de bandeira; marcação em três estados (bandeira, interrogação e vazio); dificuldade personalizada; modo sem cascata; minas visíveis; modo relâmpago; bordas toroidais; dicas limitadas; cronômetro regressivo; aviso de excesso de bandeiras; zoom e atalhos/acessibilidade de teclado; animações de explosão e vitória; recordes por dificuldade; histórico em CSV; perfis compatíveis com o histórico; configurações persistentes; salvamento e retomada serializada; exportação de estatísticas; tela cheia; e feedback sonoro simples.
 
-## Funcionalidades
+O Model também fornece as operações `chord`, `revelarRelampago`, `revelarTodasMinas`, `setSemCascata`, `setToroidal`, `setMinasVisiveis` e `setModoPergunta`, permitindo testes e futuras extensões sem acoplar a View.
 
-- Escolha de dificuldade: Iniciante, Intermediário e Avançado.
-- Estatísticas atualizadas em tempo real: tempo, minas restantes, células reveladas e jogadas.
-- Tema de cores para o plano de fundo e tabuleiro.
-- Tutorial integrado com instruções de jogo.
-- Tempo limite selecionável (até 5 minutos) como modo rápido.
-- Arquitetura MVC organizada em pastas.
+## Estrutura
+
+- `src/main` — classes principais de execução.
+- `src/controller` — Controller, recordes e utilidades de persistência.
+- `src/view` — interface gráfica Swing, temas, acessibilidade e feedback.
+- `src/model` — `Celula`, `Tabuleiro` e contrato de leitura.
+- `src/test` — testes unitários existentes.
 
 ## Compilação
 
-Execute no terminal a partir da pasta do projeto:
+A partir da pasta do projeto:
 
 ```powershell
 javac src\main\*.java src\controller\*.java src\view\*.java src\model\*.java
 ```
 
-## Execução
+Em Linux, o mesmo comando pode ser escrito com barras normais:
 
-Para iniciar a interface gráfica:
+```bash
+javac src/main/*.java src/controller/*.java src/view/*.java src/model/*.java
+```
+
+## Execução
 
 ```powershell
 java -cp src main.JogoCampoMinadoGUI
-```
-
-Para executar a versão em console:
-
-```powershell
 java -cp src main.JogoCampoMinado
 ```
 
-## Testes
-
-Se você tiver o JUnit configurado, execute os testes em `src/test/CampoMinadoTest.java` com seu ambiente de testes Java.
-
-## Observações
-
-- A interface gráfica usa Swing e respeita cores personalizadas graças ao LookAndFeel cross-platform.
-- Antes de executar, certifique-se de compilar todos os arquivos do diretório `src`.
+Os dados do usuário são gravados em `~/.campo-minado/`, os recordes no arquivo original `campo_minado_recordes.properties` e a partida atual em `.campo-minado-partida.ser` dentro da pasta pessoal.
